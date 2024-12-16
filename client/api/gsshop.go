@@ -6,11 +6,11 @@ import (
 	"net/url"
 )
 
-type Gsshop struct {
+type GsshopApi struct {
 	client *http.Client
 }
 
-func GsshopApi() *Gsshop {
+func Gsshop() *GsshopApi {
 	proxyUrl, err := url.Parse("http://172.31.17.167:3128")
 
 	if err != nil {
@@ -23,10 +23,10 @@ func GsshopApi() *Gsshop {
 		},
 	}
 
-	return &Gsshop{client}
+	return &GsshopApi{client}
 }
 
-func (gs Gsshop) Stop(data any) error {
+func (ga GsshopApi) Stop(data any) error {
 	params := url.Values{
 		"regGbn": {"U"},
 		"modGbn": {"S"},
@@ -37,7 +37,7 @@ func (gs Gsshop) Stop(data any) error {
 		"attrSaleEndStModYn": {"N"},
 	}
 
-	resp, err := gs.client.PostForm("url", params)
+	resp, err := ga.client.PostForm("url", params)
 
 	if err != nil {
 		return err

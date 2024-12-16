@@ -1,17 +1,17 @@
-package api
+package client
 
-type MarketApi interface {
-	Stop(data any) error
-}
+import (
+	"product-worker/client/api"
+)
 
 type Client struct {
 	apis map[string]MarketApi
 }
 
-func NewClient() *Client {
+func New() *Client {
 	apis := map[string]MarketApi{
-		"gsshop": GsshopApi(),
-		"coupang": CoupangApi(),
+		"gsshop": api.Gsshop(),
+		"coupang": api.Coupang(),
 	}
 
 	return &Client{apis}
