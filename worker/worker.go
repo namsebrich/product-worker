@@ -4,19 +4,20 @@ import (
 	"encoding/json"
 	"log"
 	"product-worker/client"
+
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 )
 
 type Worker struct {
-	run bool
+	run      bool
 	consumer *kafka.Consumer
-	client *client.Client
+	client   *client.Client
 }
 
 func New() *Worker {
 	consumer, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": "localhost:9092",
-		"group.id": "product-event",
+		"group.id":          "product-event",
 		"auto.offset.reset": "earliest",
 	})
 
@@ -24,7 +25,7 @@ func New() *Worker {
 		log.Fatal(err)
 	}
 
-	err = consumer.SubscribeTopics([]string{"test-topic-2"}, nil);
+	err = consumer.SubscribeTopics([]string{"product-event"}, nil)
 
 	if err != nil {
 		log.Fatal(err)
@@ -53,12 +54,12 @@ func (w *Worker) Run() {
 
 			err = job.Run(w.client)
 
-			if err != nil {
-				// 재시도 토픽 전송
-				log.Printf("send retry-product-event")
-			} else {
-				// DB 저장
-			}
+			// if err != nil {
+			// 	// 재시도 토픽 전송
+			// 	log.Printf("send retry-product-event")
+			// } else {
+			// 	// DB 저장
+			// }
 
 		case kafka.Error:
 			log.Printf("Error: %v: %v\n", e.Code(), e)

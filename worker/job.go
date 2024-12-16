@@ -1,6 +1,7 @@
 package worker
 
 import (
+	"encoding/json"
 	"errors"
 	"product-worker/client"
 )
@@ -8,7 +9,7 @@ import (
 type Job struct {
 	Action string
 	Market string
-	Data any
+	Data   json.RawMessage
 }
 
 func (j *Job) Run(c *client.Client) (err error) {

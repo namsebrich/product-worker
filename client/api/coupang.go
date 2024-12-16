@@ -12,6 +12,6 @@ func Coupang() *CoupangApi {
 	return &CoupangApi{}
 }
 
-func (c CoupangApi) Stop(data any) error {
+func (c CoupangApi) Stop(data []byte) error {
 	return nil
 }
