@@ -27,6 +27,7 @@ func Gsshop() *GsshopApi {
 }
 
 func (ga GsshopApi) Stop(data any) error {
+	path := "/alia/aliaCommonPrd.gs"
 	params := url.Values{
 		"regGbn": {"U"},
 		"modGbn": {"S"},
@@ -37,7 +38,7 @@ func (ga GsshopApi) Stop(data any) error {
 		"attrSaleEndStModYn": {"N"},
 	}
 
-	resp, err := ga.client.PostForm("url", params)
+	resp, err := ga.client.PostForm(path, params)
 
 	if err != nil {
 		return err
